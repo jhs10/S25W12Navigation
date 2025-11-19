@@ -4,19 +4,23 @@ struct ContentView: View {
     @State private var viewModel = SongViewModel()
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $viewModel.path) {
             List(viewModel.songs) { song in
-                NavigationLink(destination: SongDetailView(song: song)) {
-                    VStack(alignment: .leading) {
-                        Text(song.title)
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(song.singer)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                //NavigationLink(destination: SongDetailView(song: song)) {
+                NavigationLink(value: song) {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(song.title)
+                                .font(.headline)
+                            Text(song.singer)
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
+            }
+            .navigationDestination(for: Song.self) { song in
+                SongDetailView(song: song)
             }
         }
     }

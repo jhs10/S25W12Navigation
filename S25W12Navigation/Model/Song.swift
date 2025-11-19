@@ -1,6 +1,6 @@
 import Foundation   // 또는 SwiftUI
 
-struct Song: Identifiable {
+struct Song: Identifiable, Hashable {
     let id: UUID = UUID()
     let title: String
     let singer: String
